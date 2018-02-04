@@ -22,41 +22,43 @@
 
     var currentUid = null;
     initApp = function() {
-    firebase.auth().onAuthStateChanged(function(user) {
-      // onAuthStateChanged listener triggers every time the user ID token changes.
-      // This could happen when a new user signs in or signs out.
-      // It could also happen when the current user ID token expires and is refreshed.
-      if (user && user.uid != currentUid) {
-        // Update the UI when a new user signs in.
-        // Otherwise ignore if this is a token refresh.
-        // Update the current user UID.
+      firebase.auth().onAuthStateChanged(function(user) {
+        // onAuthStateChanged listener triggers every time the user ID token changes.
+        // This could happen when a new user signs in or signs out.
+        // It could also happen when the current user ID token expires and is refreshed.
+        if (user && user.uid != currentUid) {
+          // Update the UI when a new user signs in.
+          // Otherwise ignore if this is a token refresh.
+          // Update the current user UID.
 
-        currentUid = user.uid;
+          currentUid = user.uid;
 
 
-      } else {
-        // Sign out operation. Reset the current user UID.
-        currentUid = null;
-        console.log("no user signed in");
+        } else {
+          // Sign out operation. Reset the current user UID.
+          currentUid = null;
+          console.log("no user signed in");
 
-        // FirebaseUI config.
-        var uiConfig = {
-          signInSuccessUrl: 'setup.html',
-          signInOptions: [
-            // Leave the lines as is for the providers you want to offer your users.
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-            firebase.auth.EmailAuthProvider.PROVIDER_ID
-          ],
-          // Terms of service url.
-          tosUrl: 'https://clarkwmcd.github.io/'
-        };
+          // FirebaseUI config.
+          var uiConfig = {
+            signInSuccessUrl: 'setup.html',
+            signInOptions: [
+              // Leave the lines as is for the providers you want to offer your users.
+              firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+              firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+              firebase.auth.EmailAuthProvider.PROVIDER_ID
+            ],
+            // Terms of service url.
+            tosUrl: 'https://clarkwmcd.github.io/'
+          };
 
-        // Initialize the FirebaseUI Widget using Firebase.
-        var ui = new firebaseui.auth.AuthUI(firebase.auth());
-        // The start method will wait until the DOM is loaded.
-        ui.start('#firebaseui-auth-container', uiConfig);
-      }
+          // Initialize the FirebaseUI Widget using Firebase.
+          var ui = new firebaseui.auth.AuthUI(firebase.auth());
+          // The start method will wait until the DOM is loaded.
+          ui.start('#firebaseui-auth-container', uiConfig);
+        }
+      });
+    };
 
       window.addEventListener('load', function() {
         initApp()
@@ -66,7 +68,7 @@
         location.href = "https://joycurthblisso.github.io/GroupProject-1/Donate.html"
       }
 
-    });
+
 
       // initApp = function() {
       //   firebase.auth().onAuthStateChanged(function(user) {
