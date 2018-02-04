@@ -19,7 +19,7 @@
       firebase.initializeApp(config);
     </script>
     <script type="text/javascript">
-
+initApp = function() {
     var currentUid = null;
 
       firebase.auth().onAuthStateChanged(function(user) {
@@ -59,11 +59,15 @@
           ui.start('#firebaseui-auth-container', uiConfig);
         }
       });
+    };
 
     function goToHome() {
       location.href = "https://joycurthblisso.github.io/GroupProject-1/Donate.html"
     }
 
+    window.addEventListener('load', function() {
+      initApp()
+    });
 
       // initApp = function() {
       //   firebase.auth().onAuthStateChanged(function(user) {
